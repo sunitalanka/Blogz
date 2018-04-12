@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+   <head>
+        <title>Blog_Page</title>
+   </head>
+   <style  type="text/css">
+            .error {
+                color: red;
+            }
+
+            h1 {
+                text-align: center;
+            }
+            
+              input [type="text"] {
+                  width: 300px;
+                  height: 100px;    
+                  padding: 50px;
+                  border: 1px solid black;
+                  box-sizing: border-box;
+            }
+
+            input [type="textarea"] {
+                  width: 300px;
+                  height: 100px;    
+                  padding: 50px;
+                  border: 1px solid black;
+                  box-sizing: border-box;
+
+            }     
+   </style>
+   <body>
+           <nav>
+           <a herf="/">Main blog page</a>
+           <a herf="/">Add a blog Entry</a>
+           </nav>
+  </body>
+    {% block content %}
+    {% endblock %}
+</html>
