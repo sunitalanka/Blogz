@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
    <head>
-        <title>Blog_Page</title>
+        <title>{{title}}</title>
    </head>
    <style  type="text/css">
             .error {
                 color: red;
             }
 
-            h1 {
+              div    {
                 text-align: center;
             }
             
@@ -30,10 +30,10 @@
             }     
    </style>
    <body>
-           <nav>
-           <a herf="/">Main blog page</a>
-           <a herf="/">Add a blog Entry</a>
-           </nav>
+        <nav>
+          <p><a href="/blog">Main blog page</a></p>
+          <p><a href="/newpost">Add a blog Entry</a></p>
+        </nav>
   </body>
     {% block content %}
     {% endblock %}
