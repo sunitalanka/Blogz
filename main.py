@@ -19,43 +19,51 @@ class Blog(db.Model):
         self.title = title
         self.body = body
  
-def display_bolgs():
-    blog_id = Blog.query.all()
+#def display_bolgs():
+    #blogs =  Blog.query.all()
+    #return blogs
 
-@app.route('/blog', methods=['POST', 'GET'])
+@app.route('/newpost', methods=['POST', 'GET'])
 def blog_page():
+    title_error = ""
+    body_error = ""
+    blog_title = ""
+    blog_body = ""
 
     if request.method == "POST":
-        blog = request.form['blog']
         new_blog_title = request.form['blog_title']
-        new_blog_body = request.form['blog_body'] 
-
-        if (not new_blog_title) or (new_blog_title == ""):
-            title_error = "Please Specify the blog title"
-            return render_template('new_post.html',title_error=title_error)
-    
-        if (not new_blog_body) or (new_blog_body == ""):
-            body_error = "Plese add some content to blog body"
-            return render_template('new_post.html',body_error=body_error)
+        new_blog_body = request.form['blog_body']
         
+        if  new_blog_title == "":
+             title_error = "Please Specify the blog title"
+             blog_title =""
+             # return render_template('new_post.html',title_error=title_error)
+
+        if  new_blog_body == "":
+             body_error = "Please Specify the content of blog body"
+             blog_body = ""
+            #return render_template('new_post.html',body_error=body_error)
+
+             return render_template('new_post.html', title_error=title_error,body_error=body_error)    
         else:
              add_blog = Blog(new_blog_title,new_blog_body) 
              db.session.add(add_blog)
              db.session.commit()
-             return render_template('main_blog.html',blogs=display_bolgs())
+             return redirect('/')
 
-    return render_template('main_blog.html', blogs=display_bolgs())
+    return render_template('new_post.html',title_error=title_error,body_error=body_error)
 
-@app.route('/newpost', methods=['POST','GET'])
+@app.route('/blog', methods=['POST','GET'])
 def add_blog():
-      return render_template('new_post.html')
+    blogs = Blog.query.all()
+    return render_template('main_blog.html', blogs=blogs)
 
 
-@app.route('/blog?id=id', methods=['POST','GET']) 
-def blog_id():
-    blog_title = request.form('blog_title')
-    blog_body = request.form('blog_body') 
-    return render_template('blog_id.html', blog_title=blog_title,blog_body=blog_body) 
+#@app.route('/blog?id=', methods=['POST','GET']) 
+#def blog_id():
+   # blog_title = request.args('blog_title')
+    #blog_body = request.args('blog_body') 
+    #return render_template('blog_id.html', blog_title=blog_title,blog_body=blog_body) 
 
    
     

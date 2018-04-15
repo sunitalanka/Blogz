@@ -3,14 +3,14 @@
 {% block content %}
 <h1><div>Build a Blog</div></h1>
 {% if Blog|length == 0 %}
-    <p>No blogs yet</p>
+    <p> No blogs yet</p>
     {% else %}
-
+       <p>Do this code</p>
         <ul>
-            <form action="/blog" method="POST">
+            <form action="/blog" method="GET">
             {% for blog in blogs %}
-            <li> {{blog.title}} </li> 
-            <li> {{blog.body}} </li> 
+            <li> {{blog_title}} </li> 
+            <li> {{blog_body}} </li> 
            </form>
            <hr/>
             {% endfor %}
