@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
  {% block content %}
 
-    <h1><div>Add a blog Entry</div></h1>
+<a href = "/blog">Main blog Page</a>
 
-    <form action="/newpost" method="POST">
-    
-        <lable> Title for your new blog:</lable>
-          <br>
-             <input type="text" name="blog_title" value="{{blog_title}}"/>
-             <p class='error'>{{title_error }}</p>
-            
-             <lable> Your new Blog:</lable>
-         <br>
-            <textarea name="blog_body" value="{{blog_body}}"></textarea>
-            <p class='error'>{{ body_error }}</p>
-        <br>   
-        <input type="submit" value="Add Entry"/>
-        
-  </form>
+<a href="/newpost">Add a Blog Entry</a>
 
- {% endblock %}
+   <h1>Add a Blog Entry</h1>
+
+   <form action="/newpost" method="post">
+
+            <label for="b_title">Title for your new blog</label><br>
+              <input name="title" id="title" type="text" value="{{ title }}">
+              <p class="error">{{title_error}}</p>
+              <br>
+                <label for="body">Your new blog</label><br>
+                <textarea id="body" name="body" >{{ body }}</textarea><br>
+                <p class="error">{{body_error}}</p>                          
+              <input type="submit" value="Add Entry">
+
+    </form>
+
+{% endblock %}
+

@@ -19,54 +19,74 @@ class Blog(db.Model):
         self.title = title
         self.body = body
  
-#def display_bolgs():
-    #blogs =  Blog.query.all()
-    #return blogs
 
-@app.route('/newpost', methods=['POST', 'GET'])
+
+    def is_valid(self):
+
+        if self.title and self.body :
+            return True
+        else:
+            return False
+
+
+
+@app.route("/")
+def index():
+    
+    return redirect("/blog")
+
+
+
+@app.route("/blog")
+def display_blog():
+    entry_id = request.args.get('id')
+
+    if (entry_id):
+        entry = Blog.query.filter_by(id=entry_id).first()
+        return render_template('main_blog.html',b_title="Build a Blog",entry=entry)
+    else: 
+        entry = ""   
+        all_entries = Blog.query.all()
+        return render_template('blog_id.html', b_title="Build a Blog",entry=entry,all_entries=all_entries)
+
+
+
+
+@app.route('/newpost', methods=['GET','POST'])
 def blog_page():
     title_error = ""
     body_error = ""
-    blog_title = ""
-    blog_body = ""
+    new_title = ""
+    new_body = ""
 
     if request.method == "POST":
-        new_blog_title = request.form['blog_title']
-        new_blog_body = request.form['blog_body']
-        
-        if  new_blog_title == "":
+        new_title = request.form['title']
+        new_body = request.form['body']
+        add_blog = Blog(new_title,new_body)
+
+        if  new_title == "":
              title_error = "Please Specify the blog title"
-             blog_title =""
+             title = ""
              # return render_template('new_post.html',title_error=title_error)
 
-        if  new_blog_body == "":
+        if  new_body == "":
              body_error = "Please Specify the content of blog body"
-             blog_body = ""
+             body = ""
             #return render_template('new_post.html',body_error=body_error)
 
-             return render_template('new_post.html', title_error=title_error,body_error=body_error)    
+             return render_template('new_post.html', title_error=title_error,body_error=body_error) 
+
         else:
-             add_blog = Blog(new_blog_title,new_blog_body) 
              db.session.add(add_blog)
              db.session.commit()
-             return redirect('/')
+             url = "/blog?id=" + str(add_blog.id)
+             return redirect(url)
 
-    return render_template('new_post.html',title_error=title_error,body_error=body_error)
-
-@app.route('/blog', methods=['POST','GET'])
-def add_blog():
-    blogs = Blog.query.all()
-    return render_template('main_blog.html', blogs=blogs)
+    return render_template('new_post.html', b_title="Create a blog", title=new_title,body=new_body,
+     title_error=title_error,body_error=body_error)
 
 
-#@app.route('/blog?id=', methods=['POST','GET']) 
-#def blog_id():
-   # blog_title = request.args('blog_title')
-    #blog_body = request.args('blog_body') 
-    #return render_template('blog_id.html', blog_title=blog_title,blog_body=blog_body) 
 
    
-    
-
-if __name__ == '__main__':
-   app.run()    
+if __name__=="__main__":
+  app.run()    
