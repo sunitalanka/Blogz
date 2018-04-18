@@ -64,19 +64,19 @@ def blog_page():
         new_body = request.form['body']
         add_blog = Blog(new_title,new_body)
 
-        if  new_title == "":
+        if  new_title == ""  or len(new_body) == 1 :
              title_error = "Please Specify the blog title"
              title = ""
              # return render_template('new_post.html',title_error=title_error)
 
-        if  new_body == "":
+        if  new_body == "" or len(new_title) == 1 :
              body_error = "Please Specify the content of blog body"
              body = ""
             #return render_template('new_post.html',body_error=body_error)
 
              return render_template('new_post.html', title_error=title_error,body_error=body_error) 
 
-        else:
+        if not title_error and not body_error :
              db.session.add(add_blog)
              db.session.commit()
              url = "/blog?id=" + str(add_blog.id)
