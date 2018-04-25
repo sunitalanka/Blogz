@@ -2,16 +2,13 @@
 
 {% block content %}
    
-<a href = "/blog">Main blog Page</a>
-<a href="/newpost">Add a Blog Entry</a>
- <h1>Build a blog</h1>
     {% for entry in all_entries %}
-        <li>
+        
                <h2>
                 <a href="/blog?id={{ entry.id }}">{{ entry.title }}</a>
                </h2>
-            <h3>{{ entry.body }}</h3>          
-        </li>
-        <hr/>
+               <h3>{{ entry.body }}</h3> 
+               <a href="/blog?user={{ entry.owner.id }}">{{ entry.owner.username }}</a></p><br><br>
+        
     {% endfor %}
 {% endblock %}

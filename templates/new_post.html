@@ -1,23 +1,20 @@
 {% extends 'base.html' %}
  {% block content %}
 
-<a href = "/blog">Main blog Page</a>
-
-<a href="/newpost">Add a Blog Entry</a>
-
-   <h1>Add a Blog Entry</h1>
+    <h1>Add a Blog Entry</h1>
 
    <form action="/newpost" method="post">
 
             <label for="b_title">Title for your new blog</label><br>
               <input name="title" id="title" type="text" value="{{ title }}">
-              <p class="error">{{title_error}}</p>
+              <br>
               <br>
                 <label for="body">Your new blog</label><br>
-                <textarea id="body" name="body" >{{ body }}</textarea><br>
-                <p class="error">{{body_error}}</p>                          
+                <textarea id="body" name="body" >{{ body }}</textarea><br><br>
+                 
+                <a href="/blog?user={{ id }}">{{ username }}</a>                        
               <input type="submit" value="Add Entry">
-
+           </div>   
     </form>
 
 {% endblock %}

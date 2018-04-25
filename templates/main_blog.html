@@ -2,12 +2,9 @@
 
 {% block content %}
 
-<a href = "/blog">Main blog Page</a>
-
-<a href="/newpost">Add a Blog Entry</a>
 
 <h1>{{entry.title}}</h1>
 
-<p>{{entry.body}}</p>
-
+<h3>{{entry.body}}</h3>
+<p> written by<a href="/blog?user={{ entry.owner.id }}">{{entry.owner.username }}</a></p>
 {% endblock %}
